@@ -7,15 +7,14 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/Firebase";
-import { useNavigate } from "react-router-dom";
 import { addUser } from "../utils/userSlice";
 import { useDispatch } from "react-redux";
+import { LOGIN_BG_IMG } from "../utils/Constant";
 
 const Login = () => {
   const dispatch = useDispatch();
   const [isSignIn, setIsSignIn] = useState(true);
   const [erroMsg, setErrorMsg] = useState(null);
-  const navigate = useNavigate();
 
   const email = useRef(null);
   const password = useRef(null);
@@ -54,12 +53,10 @@ const Login = () => {
               dispatch(
                 addUser({ uid: uid, email: email, displayName: displayName })
               );
-              navigate("./browse");
             })
             .catch((error) => {
               setErrorMsg(error.message);
             });
-          console.log(user);
 
           // ...
         })
@@ -78,13 +75,9 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
-          navigate("./browse");
-
           // ...
         })
         .catch((error) => {
-          console.log(error, "error");
           const errorCode = error.code;
           const errorMessage = error.message;
           setErrorMsg(errorCode + "-" + errorMessage);
@@ -96,7 +89,7 @@ const Login = () => {
     <div>
       <Header />
       <div className="absolute text-white">
-        <img src="https://assets.nflxext.com/ffe/siteui/vlv3/21a8ba09-4a61-44f8-8e2e-70e949c00c6f/6678e2ea-85e8-4db2-b440-c36547313109/IN-en-20240722-POP_SIGNUP_TWO_WEEKS-perspective_WEB_3457a8b1-284d-4bb5-979e-2a2e9bb342b3_medium.jpg" />
+        <img src={LOGIN_BG_IMG} />
       </div>
       <form
         onSubmit={onSubmit}

@@ -1,35 +1,49 @@
 import { signOut } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { auth } from "../utils/Firebase";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { addUser, removeUser } from "../utils/userSlice";
+import { onAuthStateChanged } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { NETFLIX_LOGO, USER_LOGO } from "../utils/Constant";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const [displayImg, setDisplayImg] = useState(false);
   const navigate = useNavigate();
   const handleSignOut = () => {
     signOut(auth)
-      .then(() => {
-        navigate("/");
-      })
+      .then(() => {})
       .catch((error) => {
         navigate("/error");
       });
   };
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName } = user;
+        dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
+        navigate("/browse");
+      } else {
+        dispatch(removeUser());
+        navigate("/");
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
   return (
-    <div className="absolute px-28 py-2 bg-gradient-to-b from-black z-10 w-screen flex justify-between ">
-      <img
-        className="w-[200px]"
-        src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
-      />
+    <div className="absolute px-4 py-2 bg-gradient-to-b from-black z-10 w-full flex justify-between">
+      <img className="w-[200px]" src={NETFLIX_LOGO} />
       {user && (
         <div className="flex p-2 m-2 items-center">
           <img
             onClick={() => setDisplayImg(!displayImg)}
-            className="w-12 h-12 cursor-pointer"
-            src="https://occ-0-6247-2164.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABdpkabKqQAxyWzo6QW_ZnPz1IZLqlmNfK-t4L1VIeV1DY00JhLo_LMVFp936keDxj-V5UELAVJrU--iUUY2MaDxQSSO-0qw.png?r=e6e"
+            className="w-11 h-11 cursor-pointer rounded-md"
+            src={USER_LOGO}
           />
           {displayImg && (
             <span
