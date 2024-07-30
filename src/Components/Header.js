@@ -37,12 +37,12 @@ const Header = () => {
 
   return (
     <div className="absolute px-4 py-2 bg-gradient-to-b from-black z-10 w-full flex justify-between">
-      <img className="w-[200px]" src={NETFLIX_LOGO} />
+      <img className="w-[150px]" src={NETFLIX_LOGO} />
       {user && (
         <div className="flex p-2 m-2 items-center">
           <img
             onClick={() => setDisplayImg(!displayImg)}
-            className="w-11 h-11 cursor-pointer rounded-md"
+            className="w-8 h-8 cursor-pointer rounded-md"
             src={USER_LOGO}
           />
           {displayImg && (

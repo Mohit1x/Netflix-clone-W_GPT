@@ -7,11 +7,13 @@ const MainContainer = () => {
   const movies = useSelector((store) => store.movies.nowPlayingMovies);
 
   if (!movies) return;
+  console.log(movies);
 
-  const MainMovie = movies[3];
+  const MainMovie = movies[2];
+
+  if (!MainMovie) return;
   const { title, overview, id } = MainMovie;
-  {
-  }
+
   return (
     <div className="w-full overflow-hidden h-full">
       <VideoTitle title={title} overview={overview} />

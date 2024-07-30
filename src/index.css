@@ -10,3 +10,13 @@ html,body,#root{
 :root{
     height: 100% !important;
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+    overflow: -moz-scrollbars-none; /* Firefox */
+    overflow: hidden; /* Hide scrollbar for older browsers */
+    -ms-overflow-style: none; /* IE and Edge */
+    display: none; /* Chrome, Safari, and Opera */
+
+  }
+ 
