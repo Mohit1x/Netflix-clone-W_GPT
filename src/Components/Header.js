@@ -1,17 +1,18 @@
 import { signOut } from "firebase/auth";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { auth } from "../utils/Firebase";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
-import { configLang, NETFLIX_LOGO, USER_LOGO } from "../utils/Constant";
+import { NETFLIX_LOGO, USER_LOGO } from "../utils/Constant";
 
 const Header = () => {
+  const modelRef = useRef(null);
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-  const [displayImg, setDisplayImg] = useState(false);
+  const [displayUserName, setDisplayUserName] = useState(false);
   const navigate = useNavigate();
   const handleSignOut = () => {
     signOut(auth)
@@ -35,32 +36,41 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    const handleMouseDown = (e) => {
+      if (modelRef.current && !modelRef.current.contains(e.target)) {
+        setDisplayUserName(false);
+        return;
+      }
+    };
+
+    document.addEventListener("mousedown", handleMouseDown);
+
+    return () => document.removeEventListener("mousedown", handleMouseDown);
+  });
+
   return (
     <div className="absolute px-4 py-2 bg-gradient-to-b from-black z-10 w-full flex justify-between">
-      <img className="w-[150px]" src={NETFLIX_LOGO} />
+      <img className="w-[200px] object-contain" src={NETFLIX_LOGO} />
       {user && (
-        <div className="flex p-2 m-2 items-center font-bold text-sm ">
+        <div className="p-2 m-2 relative">
           <img
-            onClick={() => setDisplayImg(!displayImg)}
-            className="w-8 h-8 cursor-pointer rounded-md"
+            onClick={() => setDisplayUserName(!displayUserName)}
+            className="w-10 h-10 cursor-pointer rounded-md"
             src={USER_LOGO}
           />
-          {displayImg && (
-            <span
-              onClick={() => setDisplayImg(false)}
-              className="p-2 m-2 font-bold text-white cursor-pointer"
+          {displayUserName && (
+            <div
+              ref={modelRef}
+              className="bg-white  border border-gray-500 shadow z-30 p-2 rounded-md font-normal w-[150px] absolute top-11 right-4"
             >
-              {user.displayName}
-            </span>
+              <p className="shadowd-lg">{user.displayName}</p>
+              <div className="h-[1px] w-full  bg-gray-500 my-2 cursor-pointer" />
+              <button onClick={handleSignOut} className="">
+                Sign Out
+              </button>
+            </div>
           )}
-
-          <button onClick={handleSignOut} className="font bold text-white">
-            (Sign Out)
-          </button>
-          <select>
-            <options>user name</options>
-            <options>Sign out</options>
-          </select>
         </div>
       )}
     </div>
