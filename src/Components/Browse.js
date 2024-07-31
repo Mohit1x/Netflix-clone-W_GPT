@@ -10,8 +10,11 @@ import useAiringTodaySeries from "../hooks/useAiringTodaySeries";
 import useOnAirSeries from "../hooks/useOnAirSeries";
 import usePopularSeries from "../hooks/usePopularSeries";
 import useTopRatedSeries from "../hooks/useTopRatedSeries";
+import GptSearch from "./GptSearch";
 
 const Browse = () => {
+  const showGptSearch = useSelector((store) => store.gptsearch.showGpt);
+
   useNowPlayingMovies();
   usePopularMovies();
   useTopRatedMovies();
@@ -23,8 +26,14 @@ const Browse = () => {
   return (
     <div className="h-full">
       <Header />
-      <MainContainer />
-      <SecondaryContainer />
+      {showGptSearch ? (
+        <GptSearch />
+      ) : (
+        <>
+          <MainContainer />
+          <SecondaryContainer />
+        </>
+      )}
     </div>
   );
 };
