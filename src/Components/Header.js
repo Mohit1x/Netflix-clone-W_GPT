@@ -51,7 +51,10 @@ const Header = () => {
 
   return (
     <div className="absolute px-4 py-2 bg-gradient-to-b from-black z-10 w-full flex justify-between">
-      <img className="w-[200px] object-contain" src={NETFLIX_LOGO} />
+      <img
+        className="w-[130px] md:w-[200px] object-contain"
+        src={NETFLIX_LOGO}
+      />
       {user && (
         <div className="p-2 m-2 relative">
           <img
@@ -62,7 +65,7 @@ const Header = () => {
           {displayUserName && (
             <div
               ref={modelRef}
-              className="bg-white  border border-gray-500 shadow z-30 p-2 rounded-md font-normal w-[150px] absolute top-11 right-4"
+              className="bg-white  border border-gray-500 shadow z-30 p-2 rounded-md font-normal w-[100px] md:w-[150px] absolute top-11 right-4"
             >
               <p className="shadowd-lg">{user.displayName}</p>
               <div className="h-[1px] w-full  bg-gray-500 my-2 cursor-pointer" />

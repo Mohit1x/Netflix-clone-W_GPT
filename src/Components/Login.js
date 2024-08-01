@@ -89,11 +89,11 @@ const Login = () => {
     <div>
       <Header />
       <div className="absolute text-white">
-        <img src={LOGIN_BG_IMG} />
+        <img className="h-screen object-cover md:w-screen" src={LOGIN_BG_IMG} />
       </div>
       <form
         onSubmit={onSubmit}
-        className=" absolute w-[400px] p-10  bg-black my-[100px] mx-auto right-0 left-0 bg-opacity-80 text-white rounded-lg"
+        className=" absolute w-[300px] md:w-[400px] p-8 md:p-10  bg-black my-[100px] mx-auto right-0 left-0 bg-opacity-80 text-white rounded-lg"
       >
         <h1 className="font-bold text-white text-3xl py-2">
           {isSignIn ? "Sign In" : " Sign Up"}
@@ -103,20 +103,20 @@ const Login = () => {
             ref={name}
             type="text"
             placeholder="Full Name"
-            className="my-4 p-4 w-full bg-gray-800"
+            className="my-2 md:my-4 p-3 md:p-4 w-full bg-gray-800"
           />
         )}
         <input
           ref={email}
           type="text"
           placeholder="Email Address"
-          className="my-4 p-4 w-full bg-gray-800"
+          className="my-2 md:my-4 p-3 md:p-4 w-full bg-gray-800"
         />
         <input
           ref={password}
           type="password"
           placeholder="Password"
-          className="my-4 p-4 w-full bg-gray-800"
+          className="my-2 md:my-4 p-3 md:p-4 w-full bg-gray-800"
         />
         <p className="font-bold text-red-500 text-lg">{erroMsg}</p>
         <button type="submit" className="w-full bg-red-700 my-6 p-4 rounded-lg">

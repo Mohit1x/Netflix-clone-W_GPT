@@ -8,7 +8,7 @@ const SecondaryContainer = () => {
   if (!movies) return <p>loading...</p>;
   return (
     <div className="bg-black">
-      <div className="-mt-[160px] relative z-20">
+      <div className=" -mt-[60px] md:-mt-[165px] relative z-20">
         <MovieList title={"TopRated Series"} movies={movies.topRatedSeries} />
         <MovieList title={"Now Playing"} movies={movies.nowPlayingMovies} />
         <MovieList title={"Popular Series"} movies={movies.popularSeries} />

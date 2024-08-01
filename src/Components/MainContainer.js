@@ -15,7 +15,7 @@ const MainContainer = () => {
   const { title, overview, id } = MainMovie;
 
   return (
-    <div className="w-full overflow-hidden h-full">
+    <div className="w-full overflow-hidden md:h-full">
       <VideoTitle title={title} overview={overview} />
       <MovieTrailer movieId={id} />
     </div>

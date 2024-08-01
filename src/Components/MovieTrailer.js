@@ -6,7 +6,7 @@ const MovieTrailer = ({ movieId }) => {
   useTrailer(movieId);
 
   return (
-    <div className="w-screen aspect-video">
+    <div className="w-screen md:aspect-video">
       <iframe
         className="w-screen  aspect-video"
         src={`https://www.youtube.com/embed/${trailer}?&autoplay=1&mute=1`}
